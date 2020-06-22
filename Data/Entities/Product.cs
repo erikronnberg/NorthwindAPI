@@ -1,5 +1,6 @@
 namespace NorthwindAPI.Data.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -38,11 +39,13 @@ namespace NorthwindAPI.Data.Entities
 
         public bool Discontinued { get; set; }
 
+        [JsonIgnore]
         public virtual Category Category { get; set; }
-
+        
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order_Detail> Order_Details { get; set; }
-
+        [JsonIgnore]
         public virtual Supplier Supplier { get; set; }
     }
 }

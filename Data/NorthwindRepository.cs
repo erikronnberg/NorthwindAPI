@@ -29,20 +29,19 @@ namespace NorthwindAPI.Data
 
         public async Task<Supplier[]> GetAllSuppliersAsync()
         {
-            IQueryable<Supplier> query = _northwindContext.Suppliers;
-
-            // Order It
-            query = query.OrderByDescending(c => c.CompanyName);
+            IQueryable<Supplier> query = _northwindContext.Suppliers.Include(c => c.Products).OrderByDescending(c => c.CompanyName);
 
             return await query.ToArrayAsync();
         }
 
-        public Task<Supplier[]> GetAllSuppliersByCountry(string Country)
+        public async Task<Supplier[]> GetAllSuppliersByCountry(string Country)
         {
-            throw new NotImplementedException();
+            IQueryable<Supplier> query = _northwindContext.Suppliers.Include(c => c.Products).Where(c => c.Country == Country).OrderByDescending(c => c.CompanyName);
+
+            return await query.ToArrayAsync();
         }
 
-        public Task<Supplier> GetSuppliersAsync(string moniker)
+        public Task<Supplier> GetSupplierAsync(string CompanyName)
         {
             throw new NotImplementedException();
         }

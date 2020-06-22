@@ -13,7 +13,7 @@ namespace NorthwindAPI.Data
         void AddSupplier(Supplier suppliers);
         void DeleteSupplier(Supplier suppliers);
         Task<Supplier[]> GetAllSuppliersAsync();
-        Task<Supplier> GetSuppliersAsync(string moniker);
+        Task<Supplier> GetSupplierAsync(string name);
         Task<Supplier[]> GetAllSuppliersByCountry(string Country);
     }
 }

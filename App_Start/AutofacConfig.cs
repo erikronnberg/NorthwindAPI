@@ -20,8 +20,6 @@ namespace NorthwindAPI.App_Start
             bldr.RegisterWebApiModelBinderProvider();
             var container = bldr.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            var resolver = new AutofacWebApiDependencyResolver(container);
-            GlobalConfiguration.Configuration.DependencyResolver = resolver;
         }
 
         private static void RegisterServices(ContainerBuilder bldr)
@@ -31,8 +29,9 @@ namespace NorthwindAPI.App_Start
                 cfg.AddProfile(new NorthwindMappingProfile());
             });
             bldr.RegisterInstance(config.CreateMapper())
-                .As<Mapper>()
+                .As<IMapper>()
                 .SingleInstance();
+
             bldr.RegisterType<NorthwindContext>()
               .InstancePerRequest();
 

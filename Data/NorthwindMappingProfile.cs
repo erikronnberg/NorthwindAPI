@@ -14,6 +14,7 @@ namespace NorthwindAPI.Data
         public NorthwindMappingProfile()
         {
             CreateMap<Supplier, SupplierModel>();
+            CreateMap<Product, ProductModel>();
         }
     }
 }

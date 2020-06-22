@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NorthwindAPI.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,6 @@ namespace NorthwindAPI.Models
         public string Country { get; set; }
         public string Phone { get; set; }
         public string HomePage { get; set; }
+        public virtual ICollection<ProductModel> Products { get; set; }
     }
 }
