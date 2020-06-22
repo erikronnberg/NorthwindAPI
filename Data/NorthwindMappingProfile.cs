@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
 using NorthwindAPI.Data.Entities;
 using NorthwindAPI.Models;
 
@@ -13,7 +8,7 @@ namespace NorthwindAPI.Data
     {
         public NorthwindMappingProfile()
         {
-            CreateMap<Supplier, SupplierModel>();
+            CreateMap<Supplier, SupplierModel>().ReverseMap();
             CreateMap<Product, ProductModel>();
         }
     }

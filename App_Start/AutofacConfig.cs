@@ -1,10 +1,10 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using AutoMapper;
-using System.Reflection;
-using System.Web.Http;
 using NorthwindAPI.Data;
 using NorthwindAPI.Data.Entities;
+using System.Reflection;
+using System.Web.Http;
 
 namespace NorthwindAPI.App_Start
 {

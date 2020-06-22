@@ -1,8 +1,4 @@
 ﻿using NorthwindAPI.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NorthwindAPI.Data
@@ -11,9 +7,9 @@ namespace NorthwindAPI.Data
     {
         Task<bool> SaveChangesAsync();
         void AddSupplier(Supplier suppliers);
-        void DeleteSupplier(Supplier suppliers);
+        void DeleteSupplier(Supplier supplier);
+        void UpdateSupplier(Supplier supplier);
         Task<Supplier[]> GetAllSuppliersAsync();
-        Task<Supplier> GetSupplierAsync(string name);
-        Task<Supplier[]> GetAllSuppliersByCountry(string Country);
+        Task<Supplier> GetSuppliersAsync(int id);
     }
 }

@@ -1,9 +1,8 @@
 ﻿using NorthwindAPI.Data.Entities;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace NorthwindAPI.Data
@@ -12,20 +11,31 @@ namespace NorthwindAPI.Data
     {
         private readonly NorthwindContext _northwindContext;
 
-        public NorthwindRepository (NorthwindContext northwindContext)
+        public NorthwindRepository(NorthwindContext northwindContext)
         {
             _northwindContext = northwindContext;
         }
 
-        public void AddSupplier(Supplier suppliers)
+        public void AddSupplier(Supplier supplier)
         {
-            throw new NotImplementedException();
+            _northwindContext.Suppliers.Add(supplier);
         }
 
-        public void DeleteSupplier(Supplier suppliers)
+        public void UpdateSupplier(Supplier supplier)
         {
-            throw new NotImplementedException();
+            _northwindContext.Suppliers.AddOrUpdate(supplier);
         }
+
+        public void DeleteSupplier(Supplier supplier)
+        {
+            var products = _northwindContext.Products.Where(c => c.Supplier.SupplierID == supplier.SupplierID).ToArray();
+            foreach (var s in products)
+            {
+                s.Supplier = null;
+            }
+            _northwindContext.Suppliers.Remove(supplier);
+        }
+
 
         public async Task<Supplier[]> GetAllSuppliersAsync()
         {
@@ -34,21 +44,17 @@ namespace NorthwindAPI.Data
             return await query.ToArrayAsync();
         }
 
-        public async Task<Supplier[]> GetAllSuppliersByCountry(string Country)
+        public async Task<Supplier> GetSuppliersAsync(int id)
         {
-            IQueryable<Supplier> query = _northwindContext.Suppliers.Include(c => c.Products).Where(c => c.Country == Country).OrderByDescending(c => c.CompanyName);
+            var query = _northwindContext.Suppliers.Where(c => c.SupplierID == id);
 
-            return await query.ToArrayAsync();
+            return await query.FirstOrDefaultAsync();
         }
 
-        public Task<Supplier> GetSupplierAsync(string CompanyName)
+        public async Task<bool> SaveChangesAsync()
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> SaveChangesAsync()
-        {
-            throw new NotImplementedException();
+            await _northwindContext.SaveChangesAsync();
+            return true;
         }
     }
 }

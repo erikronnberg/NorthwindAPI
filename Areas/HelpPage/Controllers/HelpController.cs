@@ -1,8 +1,8 @@
+using NorthwindAPI.Areas.HelpPage.ModelDescriptions;
+using NorthwindAPI.Areas.HelpPage.Models;
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using NorthwindAPI.Areas.HelpPage.ModelDescriptions;
-using NorthwindAPI.Areas.HelpPage.Models;
 
 namespace NorthwindAPI.Areas.HelpPage.Controllers
 {
