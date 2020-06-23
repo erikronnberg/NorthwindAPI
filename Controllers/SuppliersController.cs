@@ -5,7 +5,10 @@ using NorthwindAPI.Data.Entities;
 using NorthwindAPI.Models;
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 
 namespace NorthwindAPI.Controllers
@@ -23,35 +26,25 @@ namespace NorthwindAPI.Controllers
 
         public async Task<IHttpActionResult> Get()
         {
-            try
-            {
                 var result = await _repository.GetAllSuppliersAsync();
-                var mappedResult = _mapper.Map<IEnumerable<SupplierModel>>(result);
-                return Ok(mappedResult);
-            }
-            catch
-            {
-                return InternalServerError();
-            }
+                if (result != null)
+                {
+                    var mappedResult = _mapper.Map<IEnumerable<SupplierModel>>(result);
+                    return Ok(mappedResult);
+                }
+                else return NotFound();
         }
 
         [ActionName("getSingleSupplierById")]
         public async Task<IHttpActionResult> GetSingleAsync(int id)
         {
-            try
-            {
                 var result = await _repository.GetSuppliersAsync(id);
                 if (result != null)
                 {
                     var mappedResult = _mapper.Map<SupplierModel>(result);
                     return Ok(mappedResult);
                 }
-            }
-            catch
-            {
-                return InternalServerError();
-            }
-            return BadRequest();
+                else return NotFound();
         }
 
         [ActionName("deleteSupplierById")]
@@ -62,13 +55,13 @@ namespace NorthwindAPI.Controllers
                 var supplier = await _repository.GetSuppliersAsync(id);
                 _repository.DeleteSupplier(supplier);
                 if (await _repository.SaveChangesAsync())
-                    return Ok("Deleted");
+                    return Ok(string.Format("Supplier with id {0} has been deleted", id));
+                else return BadRequest();
             }
             catch
             {
                 return InternalServerError();
             }
-            return BadRequest();
         }
         
         [ActionName("postSupplier")]
@@ -111,13 +104,14 @@ namespace NorthwindAPI.Controllers
                         var newModel = _mapper.Map<SupplierModel>(supplier);
                         return Ok(newModel);
                     }
+                    else return NotFound();
                 }
+                else return BadRequest();
             }
             catch
             {
                 return InternalServerError();
             }
-            return BadRequest();
         }
     }
 }
