@@ -19,7 +19,8 @@ namespace NorthwindAPI.Data.Entities
         public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<Shipper> Shippers { get; set; }
         public virtual DbSet<Supplier> Suppliers { get; set; }
-        public virtual DbSet<Territory> Territories { get; set; }
+        public virtual DbSet<Territory> Territories { get; set; }        
+        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

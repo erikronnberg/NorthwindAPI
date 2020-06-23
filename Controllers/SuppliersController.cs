@@ -21,6 +21,7 @@ namespace NorthwindAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize]
         public async Task<IHttpActionResult> Get()
         {
             try
@@ -39,6 +40,7 @@ namespace NorthwindAPI.Controllers
             }
         }
 
+        [Authorize]
         [ActionName("getSingleSupplierById")]
         public async Task<IHttpActionResult> GetSingleAsync(int id)
         {
@@ -58,7 +60,8 @@ namespace NorthwindAPI.Controllers
             }
 
         }
-
+        
+        [Authorize]
         [ActionName("deleteSupplierById")]
         public async Task<IHttpActionResult> Delete(int id)
         {
@@ -80,6 +83,7 @@ namespace NorthwindAPI.Controllers
             }
         }
         
+        [Authorize]
         [ActionName("postSupplier")]
         public async Task<IHttpActionResult> Post(SupplierModel model)
         {
@@ -104,6 +108,7 @@ namespace NorthwindAPI.Controllers
             }
         }
         
+        [Authorize]
         [ActionName("putSupplierById")]
         public async Task<IHttpActionResult> Patch(SupplierModel model, int id)
         {
